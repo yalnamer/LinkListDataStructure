@@ -50,6 +50,9 @@ int main()
 	list.insert(14);
 	list.insert(5, false);
 	list.insert(23, 0);
+	list.insert(54, false);
+	list.insert(2323, false);
+
 	/*list.insert(878, 0);
 	list.insert(5);
 	list.insert(23, 1);
@@ -57,5 +60,14 @@ int main()
 	list.insert(12, 23);
 	list.insert(14, false);
 */
+	list.print();
+
+	list.remove(5);
+	list.print();
+
+	list.remove(0);
+	list.print();
+
+	list.remove(1);
 	list.print();
 }

@@ -19,6 +19,8 @@ public:
 	// Insert a element into the nth position
 	void insert(T x, int position); 
 
+	void remove(int position);
+
 	void print();
 };
 
@@ -54,6 +56,7 @@ inline void LinkedList<T>::insert(T x,bool insertBeg)
 		temp1->next = nullptr; //new to nullptr, which indicates end
 		temp2->next = temp1; //element at last node now point
 
+		
 	}
 	length++;
 }
@@ -95,6 +98,44 @@ inline void LinkedList<T>::insert(T x, int position)
 	temp2->next = temp1; //> the the element in the n-1 position now points to the new node
 
 	length++;
+}
+
+template<class T>
+inline void LinkedList<T>::remove(int position)
+{
+	if (length == 0)
+	{
+		std::cout << "ERROR: The list is empty, nothing to remove.\n";
+		return;
+	}
+	
+	if ( ( position < 0 )  || ( position > (length - 1) ) )
+	{
+		std::cout << "ERROR: Out of range.\n";
+		return;
+	}
+		
+	Node<T>* temp1 = head;
+	if (position == 0)
+	{
+		head = temp1->next;
+		free(temp1);
+		return;
+	}
+
+	for (int i = 0; i < (position - 1); i++)
+	{
+		temp1 = temp1->next;
+	}
+
+	Node<T>* temp2 = temp1->next;
+
+	temp1->next = temp2->next;
+
+	free(temp2);
+
+
+
 }
 
 template<class T>
