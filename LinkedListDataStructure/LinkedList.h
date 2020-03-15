@@ -18,8 +18,10 @@ public:
 	void insert(T x, bool insertBeg = true);
 	// Insert a element into the nth position
 	void insert(T x, int position); 
-
+	// Remove an element from the nth position 
 	void remove(int position);
+
+	void reverseIterative();
 
 	void print();
 };
@@ -103,39 +105,75 @@ inline void LinkedList<T>::insert(T x, int position)
 template<class T>
 inline void LinkedList<T>::remove(int position)
 {
+
+	//If the length of the list is zero, then the list is empty, therefore can't remove anything
 	if (length == 0)
 	{
 		std::cout << "ERROR: The list is empty, nothing to remove.\n";
 		return;
 	}
 	
+	//Make sure the position is within range of the list
 	if ( ( position < 0 )  || ( position > (length - 1) ) )
 	{
 		std::cout << "ERROR: Out of range.\n";
 		return;
 	}
-		
-	Node<T>* temp1 = head;
-	if (position == 0)
+	
+	Node<T>* temp1 = head; //> Create a node that points to the first element
+
+	//For the special case of deleting a node at the first element
+	if (position == 0) 
 	{
 		head = temp1->next;
 		free(temp1);
+		length--;
 		return;
 	}
 
+	//traverse to the n-1 node of the list
 	for (int i = 0; i < (position - 1); i++)
 	{
 		temp1 = temp1->next;
 	}
 
-	Node<T>* temp2 = temp1->next;
+	Node<T>* temp2 = temp1->next; //> Create a node that will point to the element which will be remved
+	temp1->next = temp2->next; //The n-1 element will now point to the node after the removed element, so the links has been fixed
+	free(temp2); //free the memory of the old element
 
-	temp1->next = temp2->next;
+	length--;
+}
 
-	free(temp2);
+template<class T>
+inline void LinkedList<T>::reverseIterative()
+{
+	//If the list is empty, there is nothing to reverse
+	if (length == 0)
+	{
+		std::cout << "ERROR: Empty list";
+		return;
+	}
 
+	//If there is only one element, there is no need to reverse the list will be the same
+	if (length == 1)
+		return;
 
+	Node<T>* temp1 = head; //> The current node whose link will be reversed
+	Node<T>* prev = nullptr; //> Need to store previous node to reverse link
+	Node<T>* nextNode = nullptr; //> Need to store next link to traverse through list
 
+	while (temp1 != nullptr)
+	{
+		nextNode = temp1->next; //>Store next node
+
+		temp1->next = prev; //>Reverse link
+		prev = temp1; //>Update previous node
+
+		temp1 = nextNode; //> Traverse to next node
+
+	}
+
+	head = prev; //> After the while loop, point head to new first element
 }
 
 template<class T>

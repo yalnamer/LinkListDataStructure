@@ -70,4 +70,14 @@ int main()
 
 	list.remove(1);
 	list.print();
+
+	for (int i = 0; i < 5; i++)
+	{
+		list.insert( ( (i * 3) + 45) );
+	}
+
+	list.print(); 
+
+	list.reverseIterative();
+	list.print();
 }
