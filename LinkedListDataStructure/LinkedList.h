@@ -21,9 +21,22 @@ public:
 	// Remove an element from the nth position 
 	void remove(int position);
 
-	void reverseIterative();
+	//Reverse the linked list
+	void reverse();
 
+	//Reverse the linked list using recursion
+	void reverse(Node<T>* node);
+
+	//Print the elements of the list
 	void print();
+	
+	//print the elements of the list using recursion
+	void print(Node<T>* node);
+
+	//print the elements in reverse order using recursion
+	void reversePrint(Node<T>* node);
+
+	Node<T>* getHead() { return head; }
 };
 
 template<class T>
@@ -145,7 +158,7 @@ inline void LinkedList<T>::remove(int position)
 }
 
 template<class T>
-inline void LinkedList<T>::reverseIterative()
+inline void LinkedList<T>::reverse()
 {
 	//If the list is empty, there is nothing to reverse
 	if (length == 0)
@@ -170,10 +183,33 @@ inline void LinkedList<T>::reverseIterative()
 		prev = temp1; //>Update previous node
 
 		temp1 = nextNode; //> Traverse to next node
-
 	}
 
 	head = prev; //> After the while loop, point head to new first element
+}
+
+template<class T>
+inline void LinkedList<T>::reverse(Node<T>* node)
+{
+	//Recursion exit condition
+	//If the next node is null, we are at the last element,
+	//So now we make the head point to last element, making it
+	//the now the first element
+	if (node->next == nullptr)
+	{
+		head = node;
+		return;
+	}
+
+	//Call reverse on the next node in list
+	reverse(node->next);
+
+
+	Node<T>* newLink = node->next; //>New node will be the original list next node
+	newLink->next = node; //>Set the node's next parameter to the current node, which will reverse the order 
+	node->next = nullptr; //> Set the next element to nullptr, if this is the last call, then this will be the last element which is why it points to null
+	
+
 }
 
 template<class T>
@@ -187,4 +223,29 @@ inline void LinkedList<T>::print()
 		temp = temp->next;
 	}
 	std::cout << std::endl;
+}
+
+template<class T>
+inline void LinkedList<T>::print(Node<T>* node)
+{
+	//Recurssion exit condition
+	if (node == nullptr)
+		return;
+
+	std::cout << node->data << " - " ; //Print the element's data
+	print(node->next); //Call print on the next element
+
+
+}
+
+template<class T>
+inline void LinkedList<T>::reversePrint(Node<T>* node)
+{
+	//Recurrsion exit condition
+	if (node == nullptr)
+		return;
+
+	reversePrint(node->next); //Call print on the next element
+	std::cout << node->data << " - "; // print the current element data
+
 }

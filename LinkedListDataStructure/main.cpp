@@ -78,6 +78,11 @@ int main()
 
 	list.print(); 
 
-	list.reverseIterative();
+	list.reverse();
+	list.print(list.getHead());
+	std::cout << "\n";
+	list.reversePrint(list.getHead());
+	list.reverse(list.getHead());
+	std::cout << "\n";
 	list.print();
 }
