@@ -85,4 +85,7 @@ int main()
 	list.reverse(list.getHead());
 	std::cout << "\n";
 	list.print();
+
+	list.insert(2, 8);
+	list.print();
 }
