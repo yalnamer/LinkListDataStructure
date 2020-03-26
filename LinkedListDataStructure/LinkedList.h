@@ -142,7 +142,7 @@ inline void LinkedList<T>::remove(int position)
 	if (position == 0) 
 	{
 		head = temp1->next;
-		free(temp1);
+		delete(temp1);
 		length--;
 		return;
 	}
@@ -155,7 +155,7 @@ inline void LinkedList<T>::remove(int position)
 
 	Node<T>* temp2 = temp1->next; //> Create a node that will point to the element which will be remved
 	temp1->next = temp2->next; //The n-1 element will now point to the node after the removed element, so the links has been fixed
-	free(temp2); //free the memory of the old element
+	delete(temp2); //free the memory of the old element
 
 	length--;
 }
